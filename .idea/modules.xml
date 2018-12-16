@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/IslandGenerator.iml" filepath="$PROJECT_DIR$/IslandGenerator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/IslandGenerator_main.iml" filepath="$PROJECT_DIR$/.idea/modules/IslandGenerator_main.iml" group="IslandGenerator" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/IslandGenerator_test.iml" filepath="$PROJECT_DIR$/.idea/modules/IslandGenerator_test.iml" group="IslandGenerator" />
+    </modules>
+  </component>
+</project>
