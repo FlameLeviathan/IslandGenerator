@@ -48,34 +48,36 @@ public class Island {
         }*/
         //const MAX_REMOVABLE_BLOCKS =
         Bukkit.getPlayer("FlameKnight15").sendMessage(startX  + "," + startY + "," + startZ + ", Radius: " + radius);
-        int decrease = radius;// + .5;
+
         int amount = 145;
+        double decrease = Math.sqrt((radius*radius) + ((radius * 2) * (radius * 2)));
         double increment = ( 2 * Math.PI * radius) / amount;
 
-        for (int y = startY; y >= (startY - radius); y--) {
-            for (int x = -decrease; x <= /*startX +*/ decrease; x++) {
-                for (int z = -decrease; z <= /*startZ +*/ decrease; z++) {
-                for(int i = 0;i < amount; i++) {
-                    double angle = i * increment;
+        for (int y = startY; y >= (startY - decrease); y--) {
+            for (double x = -radius * 2; x <= /*startX +*/ radius; x++) {
+                for (double z = -radius * 2; z <= /*startZ +*/ radius; z++) {
+                //for(int i = 0;i < amount; i++) {
+                    //double angle = i * increment;
+                    if((x*x) + (z*z) <= (radius * radius)) {
+                        double xNew = startX + x;//(decrease * Math.cos(angle));//- x;
+                        int yNew = y;
+                        double zNew = startZ + z;//(decrease * Math.sin(angle));//- z;
 
-                    double xNew = startX + (decrease * Math.cos(angle));//- x;
-                    int yNew = y;
-                    double zNew = startZ + (decrease * Math.sin(angle));//- z;
+                        //Block block = location.add(xNew, yNew, zNew).getBlock();
+                        Block block = loc.getWorld().getBlockAt(new Location(loc.getWorld(), xNew, yNew, zNew));
+                        //Block block = loc.getWorld().getBlockAt(xNew, yNew, zNew);
+                        //if(blockLoc.getLocation().add(0, y,0).distance(blockLoc.getLocation()) >= radius) {
 
-                    //Block block = location.add(xNew, yNew, zNew).getBlock();
-                    Block block = loc.getWorld().getBlockAt(new Location(loc.getWorld(), xNew, yNew, zNew));
-                    //Block block = loc.getWorld().getBlockAt(xNew, yNew, zNew);
-                    //if(blockLoc.getLocation().add(0, y,0).distance(blockLoc.getLocation()) >= radius) {
+                        block.setType(Material.STONE);
 
-                    block.setType(Material.STONE);
-
-                    Bukkit.getPlayer("FlameKnight15").sendMessage(y + " | " + xNew + "," + yNew + "," + zNew + "");
-                    //}
+                        Bukkit.getPlayer("FlameKnight15").sendMessage( y + ", " + (startY -100) + " | " + xNew + "," + yNew + "," + zNew + "");
                     }
+                    //}
+                    //}
                 }
 
             }
-            decrease--;
+            radius--;
         }
     }
 }
