@@ -9,7 +9,7 @@ public class CommandHandler implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(label.equalsIgnoreCase("island")){
-            IslandType type = new IslandType(6, IslandType.Biome.PLAIN);
+            IslandType type = new IslandType(7, IslandType.Biome.PLAIN);
             Island island = new Island(type, sender.getServer().getPlayer(sender.getName()).getLocation());
             island.createIsland();
             sender.sendMessage("Created!");

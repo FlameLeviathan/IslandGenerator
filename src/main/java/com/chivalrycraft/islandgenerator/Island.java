@@ -27,7 +27,7 @@ public class Island {
     }
 
     public void createIsland(){
-        createLowerPart(type.getRadius(), location.add(15, 0,0));
+        createLowerPart(type.getRadius(), location.add(0, 0,0));
     }
 
 
@@ -48,22 +48,32 @@ public class Island {
         }*/
         //const MAX_REMOVABLE_BLOCKS =
         Bukkit.getPlayer("FlameKnight15").sendMessage(startX  + "," + startY + "," + startZ + ", Radius: " + radius);
-        int decrease = radius;
+        int decrease = radius;// + .5;
+        int amount = 145;
+        double increment = ( 2 * Math.PI * radius) / amount;
 
-        for(int y = radius; y < startY + (radius); y++){
-            for(int x = -decrease; x < /*startX +*/ decrease; x++){
-                for(int z = -decrease; z < /*startZ +*/ decrease; z++){
-                    int xNew = startX - x;
-                    int yNew = startY - y;
-                    int zNew = startZ - z;
+        for (int y = startY; y >= (startY - radius); y--) {
+            for (int x = -decrease; x <= /*startX +*/ decrease; x++) {
+                for (int z = -decrease; z <= /*startZ +*/ decrease; z++) {
+                for(int i = 0;i < amount; i++) {
+                    double angle = i * increment;
 
-                    Block blockLoc = loc.getWorld().getBlockAt(xNew, yNew, zNew);
+                    double xNew = startX + (decrease * Math.cos(angle));//- x;
+                    int yNew = y;
+                    double zNew = startZ + (decrease * Math.sin(angle));//- z;
+
+                    //Block block = location.add(xNew, yNew, zNew).getBlock();
+                    Block block = loc.getWorld().getBlockAt(new Location(loc.getWorld(), xNew, yNew, zNew));
+                    //Block block = loc.getWorld().getBlockAt(xNew, yNew, zNew);
                     //if(blockLoc.getLocation().add(0, y,0).distance(blockLoc.getLocation()) >= radius) {
 
-                        blockLoc.setType(new ItemStack(Material.WOOL, 1, (byte) 6).getType());
-                        Bukkit.getPlayer("FlameKnight15").sendMessage( xNew + "," +  yNew + "," +  zNew + "");
+                    block.setType(Material.STONE);
+
+                    Bukkit.getPlayer("FlameKnight15").sendMessage(y + " | " + xNew + "," + yNew + "," + zNew + "");
                     //}
+                    }
                 }
+
             }
             decrease--;
         }
