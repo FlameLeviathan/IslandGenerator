@@ -1,0 +1,5 @@
+<root>
+    <item name='com.sk89q.worldedit.function.operation.Operations'>
+        <annotation name='java.lang.Deprecated'/>
+    </item>
+</root>

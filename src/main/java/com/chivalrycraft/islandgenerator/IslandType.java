@@ -1,13 +1,15 @@
 package com.chivalrycraft.islandgenerator;
 
+
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import java.util.ArrayList;
+import org.bukkit.entity.Entity;
+
+import java.util.HashMap;
 
 public class IslandType {
     //Radius
-    //Top Blocks (Blocks above ground)
-    //Bottom Blocks (Blocks below ground)
+    //Top Material (Material above ground)
+    //Bottom Material (Material below ground)
     //Spawns (Mobs)
     //Type / Biome
     //Size (radius and base area)
@@ -15,7 +17,9 @@ public class IslandType {
     //Variables
     int radius;
     Biome biome;
-    ArrayList topBlocks, bottomBlocks, mobSpawns;
+    HashMap<Material, Double> bottomBlocks = new HashMap<Material, Double>();
+    HashMap<Material, Double> topBlocks = new HashMap<Material, Double>();
+    HashMap<Entity, Double> mobSpawns = new HashMap<Entity, Double>();
     boolean dungeons, lootArea;
 
     public void setRadius(int radius) {
@@ -26,15 +30,15 @@ public class IslandType {
         this.biome = biome;
     }
 
-    public void setTopBlocks(ArrayList topBlocks) {
+    public void setTopBlocks(HashMap<Material, Double> topBlocks) {
         this.topBlocks = topBlocks;
     }
 
-    public void setBottomBlocks(ArrayList bottomBlocks) {
+    public void setBottomBlocks(HashMap<Material, Double> bottomBlocks) {
         this.bottomBlocks = bottomBlocks;
     }
 
-    public void setMobSpawns(ArrayList mobSpawns) {
+    public void setMobSpawns(HashMap<Entity, Double> mobSpawns) {
         this.mobSpawns = mobSpawns;
     }
 
@@ -54,15 +58,15 @@ public class IslandType {
         return biome;
     }
 
-    public ArrayList getTopBlocks() {
+    public HashMap<Material, Double> getTopBlocks() {
         return topBlocks;
     }
 
-    public ArrayList getBottomBlocks() {
+    public HashMap<Material, Double> getBottomBlocks() {
         return bottomBlocks;
     }
 
-    public ArrayList getMobSpawns() {
+    public HashMap<Entity, Double> getMobSpawns() {
         return mobSpawns;
     }
 
@@ -76,7 +80,7 @@ public class IslandType {
 
 
 
-    IslandType(int radius, Biome biome, ArrayList topBlocks, ArrayList bottomBlocks, ArrayList mobSpawns){
+    IslandType(int radius, Biome biome, HashMap<Material, Double> topBlocks, HashMap<Material, Double> bottomBlocks, HashMap<Entity, Double> mobSpawns){
         this.radius = radius;
         this.biome = biome;
         this.topBlocks = topBlocks;
@@ -84,12 +88,14 @@ public class IslandType {
         this.mobSpawns = mobSpawns;
     }
 
+    //Test method
     IslandType(int radius, Biome biome){
         this.radius = radius;
         this.biome = biome;
+        bottomBlocks = parseBottomBlocks();
     }
 
-    IslandType(int size, Biome biome, ArrayList topBlocks, ArrayList bottomBlocks, ArrayList mobSpawns, boolean dungeons, boolean lootArea){
+    IslandType(int size, Biome biome, HashMap<Material, Double> topBlocks, HashMap<Material, Double> bottomBlocks, HashMap<Entity, Double> mobSpawns, boolean dungeons, boolean lootArea){
         this.radius = parseSize(size);
         this.biome = biome;
         this.topBlocks = topBlocks;
@@ -120,14 +126,32 @@ public class IslandType {
 
     }
 
-    ArrayList parseBiome(Biome biome){
-        ArrayList blocks = new ArrayList();
+    Biome parseBiome(Biome biome){
+        Biome blocks = Biome.PLAIN;
         switch(biome){
             case PLAIN:
-                blocks.add(Material.GRASS);
+                //Change this to grass
                 break;
             default:
-                blocks.add(Material.GRASS);
+                break;
+        }
+        return blocks;
+    }
+
+    HashMap<Material, Double> parseBottomBlocks(){
+        HashMap<Material, Double> blocks = new HashMap<>();
+        switch(biome){
+            case PLAIN:
+                //Change this to grass
+                blocks.put(Material.STONE, 85.0);
+                blocks.put(Material.COBBLESTONE, 50.0);
+                blocks.put(Material.IRON_ORE, 9.0);
+                blocks.put(Material.COAL_ORE, 10.0);
+                blocks.put(Material.GOLD_ORE, 3.0);
+                blocks.put(Material.DIAMOND_ORE, 1.0);
+                break;
+            default:
+                blocks.put(Material.STONE, 75.0);
                 break;
         }
         return  blocks;
