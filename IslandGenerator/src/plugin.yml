@@ -1,0 +1,10 @@
+name: IslandGenerator
+version: 1.0
+main: com.chivalrycraft.islandgenerator.Core
+authors: [FlameKnight15]
+description: Procedurally Generates Islands
+load: STARTUP
+commands:
+  island:
+    description: Creates an island
+    usage: /island

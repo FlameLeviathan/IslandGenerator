@@ -1,0 +1,12 @@
+name: IslandGenerator
+version: 1.0.2.1
+main: com.chivalrycraft.islandgenerator.Core
+authors: [FlameKnight15]
+description: Procedurally Generates Islands
+#depend: [WorldEdit, ProtocolLib]
+load: STARTUP
+commands:
+  island:
+    aliases: [ig, islandgenerator, islandg]
+    description: Base command for the island plugin
+    usage: /island
